@@ -2,64 +2,20 @@ global:
   scrape_interval: 15s
   evaluation_interval: 30s
 
-rule_files: []
+rule_files: [ ]
 
 scrape_configs:
-#  - job_name: prometheus
-#
-#    scrape_failure_log_file: fail_prom.log
-#    file_sd_configs:
-#      - files:
-#          - foo/*.slow.json
-#          - foo/*.slow.yml
-#          - single/file.yml
-#        refresh_interval: 10m
-#      - files:
-#          - bar/*.yaml
-#
-#    static_configs:
-#      - targets: ["localhost:9090", "localhost:9191"]
-#        labels:
-#          my: label
-#          your: label
-#
-#    http_headers:
-#      foo:
-#        values: ["foobar"]
-#        secrets: ["bar", "foo"]
-#        files: ["valid_password_file"]
-#
-#    relabel_configs:
-#      - source_labels: [job, __meta_dns_name]
-#        regex: (.*)some-[regex]
-#        target_label: job
-#        replacement: foo-${1}
-#        # action defaults to 'replace'
-#      - source_labels: [abc]
-#        target_label: cde
-#      - replacement: static
-#        target_label: abc
-#      - regex:
-#        replacement: static
-#        target_label: abc
-#      - source_labels: [foo]
-#        target_label: abc
-#        action: keepequal
-#      - source_labels: [foo]
-#        target_label: abc
-#        action: dropequal
-#
-#    authorization:
-#      credentials_file: valid_token_file
-#
-#    tls_config:
-#      min_version: TLS10
   - job_name: cadvisor
     scrape_interval: 5s
     static_configs:
       - targets:
           - cadvisor:8080
 
+  - job_name: backend
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - golang:8080
 
 alerting:
   alertmanagers:
