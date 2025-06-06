@@ -4,6 +4,9 @@ build:
 up:
 	docker compose up -d
 
+restart:
+	docker compose restart
+
 build-up: build up
 
 down:
