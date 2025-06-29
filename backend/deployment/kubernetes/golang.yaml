@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: golang
+  name: golang
+  namespace: devops-course-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: golang
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: golang
+    spec:
+      containers:
+      - image: anastasiiazakharchuk/devops-course-golang
+        name: devops-course-golang
+        resources: {}
+status: {}
