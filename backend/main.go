@@ -14,6 +14,7 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/penglongli/gin-metrics/ginmetrics"
 )
 
 func main() {
@@ -26,10 +27,14 @@ func main() {
 		go func() { memoryLeak(0, 0) }()
 	}
 
+	m := ginmetrics.GetMonitor()
+	m.SetMetricPath("/metrics")
+
 	// Server
 	log.Println("Starting server...")
 	router := gin.New()
 	router.Use(cors.Default())
+	m.Use(router)
 	router.GET("/fibonacci", fibonacciHandler)
 	router.POST("/video", videoPostHandler)
 	router.GET("/videos", videosGetHandler)
