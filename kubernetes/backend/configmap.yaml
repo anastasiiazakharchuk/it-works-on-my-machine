@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configmap
+  namespace: devops-course-backend
+data:
+  DB_ENDPOINT: postgresql
+  DB_NAME: db
+  DB_PASS: password
+  DB_PORT: "5432"
+  DB_USER: postgres
+  REDIS_ENDPOINT: redis
+  REDIS_PORT: "6379"
