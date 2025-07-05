@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: golang
   name: golang
@@ -11,15 +10,12 @@ spec:
   selector:
     matchLabels:
       app: golang
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: golang
     spec:
       containers:
-      - image: anastasiiazakharchuk/devops-course-golang
+#      - image: anastasiiazakharchuk/devops-course-golang
+      - image: nginx:latest
         name: devops-course-golang
-        resources: {}
-status: {}

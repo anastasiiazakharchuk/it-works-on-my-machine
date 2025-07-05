@@ -16,5 +16,6 @@ spec:
         app: node
     spec:
       containers:
-      - image: anastasiiazakharchuk/devops-course-node
+#      - image: anastasiiazakharchuk/devops-course-node
+      - image: node:latest #TODO:
         name: devops-course-node
