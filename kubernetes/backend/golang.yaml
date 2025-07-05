@@ -16,6 +16,5 @@ spec:
         app: golang
     spec:
       containers:
-#      - image: anastasiiazakharchuk/devops-course-golang
-      - image: nginx:latest
+      - image: anastasiiazakharchuk/devops-course-golang
         name: devops-course-golang
