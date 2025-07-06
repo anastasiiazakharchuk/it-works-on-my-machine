@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: golang
+  name: golang
+  namespace: devops-course-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: golang
+  template:
+    metadata:
+      labels:
+        app: golang
+    spec:
+      containers:
+      - image: anastasiiazakharchuk/devops-course-golang
+        name: devops-course-golang
+        envFrom:
+          - configMapRef:
+              name: configmap
