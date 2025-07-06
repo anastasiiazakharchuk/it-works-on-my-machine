@@ -4,10 +4,10 @@ metadata:
   name: configmap
   namespace: devops-course-backend
 data:
-  DB_ENDPOINT: postgresql
+  DB_ENDPOINT: devops-course-db.cpy6wge0ejpw.eu-north-1.rds.amazonaws.com
   DB_NAME: db
-  DB_PASS: password
+  DB_PASS: "hMm=C268Ny44"
   DB_PORT: "5432"
   DB_USER: postgres
-  REDIS_ENDPOINT: redis
+  REDIS_ENDPOINT: devops-course-valkey-oixtf4.serverless.eun1.cache.amazonaws.com
   REDIS_PORT: "6379"
