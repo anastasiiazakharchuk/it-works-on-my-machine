@@ -23,3 +23,9 @@ db-schema-create:
 
 clear-cache:
 	docker compose exec redis redis-cli flushall
+
+build-backend-tag:
+	docker build ./backend -f ./backend/deployment/Dockerfile --target prod -t anastasiiazakharchuk/devops-course-golang
+
+push-backend-tag:
+	docker push anastasiiazakharchuk/devops-course-golang

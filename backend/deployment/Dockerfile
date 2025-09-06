@@ -10,9 +10,9 @@ RUN GOOS=linux GOARCH=amd64 go build -o golang-demo ./... && \
 
 CMD ["./golang-demo"]
 
-FROM builder as dev
+FROM builder AS dev
 
-FROM alpine as prod
+FROM --platform=linux/amd64 alpine AS prod
 
 WORKDIR /go/src
 COPY --from=builder /go/src/golang-demo ./golang-demo
