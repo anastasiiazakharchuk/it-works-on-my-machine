@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "it-works-on-my-machine-app.backend.fullname" . }}
+  labels:
+    {{- include "it-works-on-my-machine-app.backend.labels" . | nindent 4 }}
+spec:
+  {{- with .Values.backend }}
+  replicas: {{ .replicas }}
+  selector:
+    matchLabels:
+      {{- include "it-works-on-my-machine-app.backend.selectorLabels" $ | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "it-works-on-my-machine-app.backend.labels" $ | nindent 8 }}
+    spec:
+      containers:
+      - image: "{{ .image.repository }}:{{ .image.tag }}"
+        name: {{ .containerName }}
+        imagePullPolicy: {{ .image.pullPolicy }}
+        envFrom:
+          - configMapRef:
+              name: {{ include "it-works-on-my-machine-app.backend.fullname" $ }}
+        env:
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                key: postgres-password
+                name: backend-database-secret
+    {{- end }}

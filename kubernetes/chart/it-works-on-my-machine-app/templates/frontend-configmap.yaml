@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "it-works-on-my-machine-app.frontend.fullname" . }}
+data:
+  {{- range $key, $value := .Values.frontend.configMap.data }}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
