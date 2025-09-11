@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "it-works-on-my-machine-app.frontend.fullname" . }}
+  labels:
+    {{- include "it-works-on-my-machine-app.frontend.labels" . | nindent 4 }}
+spec:
+  {{- with .Values.frontend }}
+  replicas: {{ .replicas }}
+  selector:
+    matchLabels:
+      {{- include "it-works-on-my-machine-app.frontend.selectorLabels" $ | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "it-works-on-my-machine-app.frontend.labels" $ | nindent 8 }}
+    spec:
+      containers:
+        - image: "{{ .image.repository }}:{{ .image.tag }}"
+          imagePullPolicy: {{ .image.pullPolicy }}
+          name: {{ .containerName }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "it-works-on-my-machine-app.frontend.fullname" $ }}
+  {{- end }}

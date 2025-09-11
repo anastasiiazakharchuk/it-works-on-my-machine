@@ -1,0 +1,64 @@
+nameOverride: ""
+fullnameOverride: ""
+
+backend:
+  replicas: 1
+  containerName: golang
+  image:
+    repository: anastasiiazakharchuk/devops-course-golang
+    tag: latest
+    pullPolicy: Always
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30008
+    targetPort: 8080
+  configMap:
+    data:
+      DB_ENDPOINT: postgres
+      DB_NAME: db
+      DB_PORT: "5432"
+      DB_USER: "postgres"
+      REDIS_ENDPOINT: redis-master
+      REDIS_PORT: "6379"
+
+frontend:
+  replicas: 1
+  containerName: node
+  image:
+    repository: anastasiiazakharchuk/devops-course-node
+    tag: latest
+    pullPolicy: Always
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30007
+    targetPort: 3000
+  configMap:
+    data:
+      REACT_APP_BACKEND_URL: http://192.168.49.2:30008
+
+redis:
+  enabled: true
+  fullnameOverride: redis
+  architecture: standalone
+  auth:
+    enabled: false
+  tls:
+    authClients: false
+
+postgresql:
+  enabled: true
+  fullnameOverride: postgres
+  auth:
+    database: db
+    existingSecret: backend-database-secret
+  primary:
+    initdb:
+      scripts:
+        init.sql: |
+          \c db
+          CREATE TABLE IF NOT EXISTS videos (
+          id VARCHAR(255) NOT NULL,
+          title VARCHAR(255) NOT NULL
+          );
